@@ -1,0 +1,20 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebView Interaction</title>
+    <script>
+        function notifyNative() {
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonClicked) {
+                window.webkit.messageHandlers.buttonClicked.postMessage("Button was clicked");
+            } else {
+                console.log("The native handler is not available.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>WebView Interaction Example</h1>
+    <button onclick="notifyNative()">Click Me</button>
+</body>
+</html>
+
