@@ -3,18 +3,31 @@
     <meta charset="UTF-8">
     <title>WebView Interaction</title>
     <script>
-        function notifyNative() {
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonClicked) {
-                window.webkit.messageHandlers.buttonClicked.postMessage("Button was clicked");
+        /**
+         * Sends a message to a specific native iOS handler based on the button clicked.
+         * @param {string} handlerName - The name of the native handler.
+         * @param {string} message - The message to send.
+         */
+        function notifyNative(handlerName, message) {
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers[handlerName]) {
+                window.webkit.messageHandlers[handlerName].postMessage(message);
             } else {
-                console.log("The native handler is not available.");
+                console.log("The native handler " + handlerName + " is not available.");
             }
         }
     </script>
 </head>
 <body>
     <h1>WebView Interaction Example</h1>
-    <button onclick="notifyNative()">Click Me</button>
+    
+    <!-- Four Buttons with unique handlers -->
+    <button onclick="notifyNative('buttonPlusActive', 'Plus Active was clicked')">Plus Active</button>
+    <button onclick="notifyNative('buttonPaymentDone', 'Payment Done was clicked')">Payment Done</button>
+    <button onclick="notifyNative('buttonPaymentCancel', 'Payment Cancel was clicked')">Payment Cancel</button>
+    <button onclick="notifyNative('buttonClose', 'Close was clicked')">Close</button>
 </body>
 </html>
+
+
+
 
